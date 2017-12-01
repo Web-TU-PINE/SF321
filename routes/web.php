@@ -23,3 +23,5 @@ Route::get('/createbook', function () {
 Route::get('/findbook', function () {
     return view('findbook');
 });
+
+Route::resource('book','ManageBookController');
