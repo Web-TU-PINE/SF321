@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="container">
-            <h2>ค้นหาหนังสือในระบบ</h2><br  />
+            <h2>เพิ่มหนังสือในระบบ</h2><br  />
            @if ($errors->any())
            <div class="alert alert-danger">
                <ul>
@@ -27,7 +27,7 @@
                <p>{{ \Session::get('success') }}</p>
            </div><br />
            @endif
-      <form method="POST" action="{{url('book')}}">
+      <form method="POST" action="{{url('book')}}" enctype="multipart/form-data">
                       {{ csrf_field() }}
                     <div class="form-row">
                       <div class="form-group col-md-3">
@@ -56,40 +56,50 @@
                         <label for="typebook">สถานะหนังสือ</label>
                         <select name="typebook" class="form-control">
                           <option selected>Choose...</option>
-                          <option value="001">หนังสือที่ยังไม่ได้รับ</option>
-                          <option value="002">หนังสือที่ได้รับแล้ว</option>
-                          <option value="003">หนังสือที่แจกจ่ายแล้ว</option>
+                          <option value="1">หนังสือที่ยังไม่ได้รับ</option>
+                          <option value="2">หนังสือที่ได้รับแล้ว</option>
+                          <option value="3">หนังสือที่แจกจ่ายแล้ว</option>
                         </select>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="fromdpm">จากหน่วยงาน</label>
                         <select  name="fromdpm" class="form-control">
                           <option selected>Choose...</option>
-                          <option value="001">A</option>
-                          <option value="002">B</option>
-                          <option value="003">C</option>
+                          <option value="1">อบต</option>
+                          <option value="2">อบจ</option>
+                          <option value="3">เทศบาล</option>
+                          <option value="4">กฌ</option>
+                          <option value="5">การเงิน</option>
+                          <option value="6">รายได้</option>
+                          <option value="7">ตรวจสอบ</option>
+                          <option value="8">บัญชี</option>
                         </select>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="todpm">ถึงหน่วยงาน</label>
                         <select  name="todpm" class="form-control">
                           <option selected>Choose...</option>
-                          <option value="001">A</option>
-                          <option value="002">B</option>
-                          <option value="003">C</option>
+                          <option value="1">อบต</option>
+                          <option value="2">อบจ</option>
+                          <option value="3">เทศบาล</option>
+                          <option value="4">กฌ</option>
+                          <option value="5">การเงิน</option>
+                          <option value="6">รายได้</option>
+                          <option value="7">ตรวจสอบ</option>
+                          <option value="8">บัญชี</option>
                         </select>
                       </div>
                       <div class="form-group col-md-4">
-                        <label for="inputZip">จากวันที่</label>
-                        <input type="date" class="form-control">
+                        <label for="inputZip" name="start">จากวันที่</label>
+                        <input type="date" name="start" class="form-control">
                       </div>
                       <div class="form-group col-md-4">
-                        <label for="inputZip">ถึงวันที่</label>
-                        <input type="date" class="form-control">
+                        <label name="end" for="inputZip">ถึงวันที่</label>
+                        <input type="date" name="end" class="form-control">
                       </div>
                       <div class="form-group col-md-4">
                         <label for="file">ไฟล์เอกสาร</label>
-                        <input type="text" name="file" class="form-control">
+                        <input type="file" name="file" class="form-control">
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary">บันทึก</button>

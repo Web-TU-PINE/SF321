@@ -24,6 +24,8 @@ class CreateBooksTable extends Migration
             $table->integer('fromdpm');
             $table->integer('todpm');
             $table->integer('typebook');
+            $table->date('start');
+            $table->date('end');	
             $table->timestamps();
         });
     }

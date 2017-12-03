@@ -16,12 +16,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('/createbook', function () {
-    return view('createbook');
-});
 
-Route::get('/findbook', function () {
-    return view('findbook');
-});
 
+
+Route::get('search', 'ManageBookController@find');
 Route::resource('book','ManageBookController');

@@ -19,15 +19,17 @@
               <a class="nav-link" href="/">หน้าหลัก <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/createbook">สร้างหนังสือ</a>
+              <a class="nav-link" href="/book/create">สร้างหนังสือ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="findbook">ค้นหาหนังสือ</a>
+              <a class="nav-link disabled" href="/book">ค้นหาหนังสือ</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="รหัสหนังสือ" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <form method="GET" action="{{url('search')}}" class="form-inline my-2 my-lg-0">
+            {{  csrf_field() }}
+            <input class="form-control mr-sm-2" type="search" name="booknumber"placeholder="รหัสหนังสือ" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="heading"placeholder="เรื่อง" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" name="booknumber" type="submit">Search</button>
           </form>
         </div>
       </nav>
