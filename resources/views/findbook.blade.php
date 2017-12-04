@@ -7,11 +7,10 @@
 @section('sidebar')
     @parent
 
-    <p>This is appended to the master sidebar.</p>
 @endsection
 
 @section('content')
-    <p>ค้นหาหนังสือในระบบ</p>
+    <h2>ค้นหาหนังสือในระบบ</h2>
     <div class="container">
       @if ($errors->any())
       <div class="alert alert-danger">
@@ -47,18 +46,24 @@
                    <input type="text" name="refer" class="form-control" placeholder="เรื่อง">
                  </div>
                </div>
+               <div class="">
+                        <br><br>
+               </div>
                <div class="form-row">
                  <label for="detail">รายละเอียด</label>
                  <textarea name="detail" rows="8" cols="80"></textarea>
+               </div>
+               <div class="">
+                        <br><br>
                </div>
                <div class="form-row">
                  <div class="form-group col-md-4">
                    <label for="typebook">สถานะหนังสือ</label>
                    <select name="typebook" class="form-control">
                      <option selected>Choose...</option>
-                     <option value="1">หนังสือที่ยังไม่ได้รับ</option>
-                     <option value="2">หนังสือที่ได้รับแล้ว</option>
-                     <option value="3">หนังสือที่แจกจ่ายแล้ว</option>
+                     <option value="2">หนังสือที่ยังไม่ได้รับ</option>
+                     <option value="3">หนังสือที่ได้รับแล้ว</option>
+                     <option value="4">หนังสือที่แจกจ่ายแล้ว</option>
                    </select>
                  </div>
                  <div class="form-group col-md-4">
@@ -97,10 +102,9 @@
                    <label name="end" for="inputZip">ถึงวันที่</label>
                    <input type="date" name="end" class="form-control">
                  </div>
-                 <div class="form-group col-md-4">
-                   <label for="file">ไฟล์เอกสาร</label>
-                   <input type="file" name="file" class="form-control">
-                 </div>
+               </div>
+               <div class="">
+                        <br><br>
                </div>
                <button type="submit" class="btn btn-primary">ค้นหา</button>
              </form>
@@ -117,7 +121,7 @@
         <th>เรื่อง</th>
         <th>อ้างอิง</th>
         <th>รายละเอียด</th>
-        <th colspan="2">Action</th>
+        <th colspan="3">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -126,6 +130,9 @@
         <td>{{$book['booknumber']}}</td>
         <td>{{$book['heading']}}</td>
         <td>{{$book['refer']}}</td>
+        <td>{{$book['detail']}}</td>
+
+        <td><a href="{{action('ManageBookController@show', $book['id'])}}" class="btn btn-primary">detail</a></td>
         <td><a href="{{action('ManageBookController@edit', $book['id'])}}" class="btn btn-warning">Edit</a></td>
         <td>
           <form action="{{action('ManageBookController@destroy', $book['id'])}}" method="post">
@@ -138,5 +145,8 @@
       @endforeach
     </tbody>
   </table>
+      <div class="container center" >
+              <h1>{{ $books->links() }}</h1>
+      </div>
   </div>
 @endsection

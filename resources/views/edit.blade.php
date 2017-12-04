@@ -56,7 +56,7 @@
           <label for="typebook">สถานะหนังสือ</label>
           <select name="typebook" class="form-control">
             @foreach($types as $type)
-            <option value="{{ $typeSelect->id }}" {{ ($typeSelect->id == $book->typebook) ? 'selected' : '' }}>{{ $type->type }}</option>
+            <option value="{{ $type->id }}" {{ $type->id == $book->typebook ?'selected="selected"'  : '' }}>{{ $type->type }}</option>
             @endforeach
           </select>
         </div>
@@ -67,9 +67,8 @@
         <div class="form-group col-md-4">
           <label for="fromdpm">จากหน่วยงาน</label>
             <select  name="fromdpm" class="form-control">
-                <option selected>Choose...</option>
                 @foreach( $drps as $drp)
-                 <option value="{{ $drp->id}}">{{ $drp->namedrp }}</option>
+                 <option value="{{ $drp->id}}" {{ $drp->id == $book->fromdpm ?'selected="selected"'  : '' }}>{{ $drp->namedrp }}</option>
                 @endforeach
             </select>
         </div>
@@ -77,24 +76,19 @@
         <div class="form-group col-md-4">
           <label for="todpm">ถึงหน่วยงาน</label>
             <select  name="todpm" class="form-control">
-                <option selected>Choose...</option>
                 @foreach( $drps as $drp)
-                 <option value="{{ $drp->id}}">{{ $drp->namedrp }}</option>
+                  <option value="{{ $drp->id}}" {{ $drp->id == $book->todpm ?'selected="selected"'  : '' }}>{{ $drp->namedrp }}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="form-group col-md-4">
           <label for="inputZip" name="start">จากวันที่</label>
-          <input type="date" name="start" class="form-control">
-        </div>
-        <div class="form-group col-md-4">
-          <label name="end" for="inputZip">ถึงวันที่</label>
-          <input type="date" name="end" class="form-control">
+          <input type="date" value="{{$book->start}}" name="start" class="form-control">
         </div>
         <div class="form-group col-md-4">
           <label for="file">ไฟล์เอกสาร</label>
-          <input type="text" name="file" class="form-control">
+          <input type="file" name="file" class="form-control">
         </div>
       </div>
      <div class="row">

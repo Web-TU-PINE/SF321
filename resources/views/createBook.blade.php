@@ -56,9 +56,9 @@
                         <label for="typebook">สถานะหนังสือ</label>
                         <select name="typebook" class="form-control">
                           <option selected>Choose...</option>
-                          <option value="1">หนังสือที่ยังไม่ได้รับ</option>
-                          <option value="2">หนังสือที่ได้รับแล้ว</option>
-                          <option value="3">หนังสือที่แจกจ่ายแล้ว</option>
+                          <option value="2">หนังสือที่ยังไม่ได้รับ</option>
+                          <option value="3">หนังสือที่ได้รับแล้ว</option>
+                          <option value="4">หนังสือที่แจกจ่ายแล้ว</option>
                         </select>
                       </div>
                       <div class="form-group col-md-4">
@@ -90,12 +90,8 @@
                         </select>
                       </div>
                       <div class="form-group col-md-4">
-                        <label for="inputZip" name="start">จากวันที่</label>
+                        <label for="inputZip" name="start">สรา้งวันที่</label>
                         <input type="date" name="start" class="form-control">
-                      </div>
-                      <div class="form-group col-md-4">
-                        <label name="end" for="inputZip">ถึงวันที่</label>
-                        <input type="date" name="end" class="form-control">
                       </div>
                       <div class="form-group col-md-4">
                         <label for="file">ไฟล์เอกสาร</label>

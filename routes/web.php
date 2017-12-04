@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('layouts/app');
+    return redirect('book');
 });
 
 
@@ -20,4 +20,9 @@ Route::get('/', function () {
 
 
 Route::get('search', 'ManageBookController@find');
+
+
+
+Route::resource('dowload','DowloadController');
+
 Route::resource('book','ManageBookController');

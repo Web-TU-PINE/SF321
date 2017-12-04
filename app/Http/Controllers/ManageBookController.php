@@ -18,7 +18,7 @@ class ManageBookController extends Controller
      */
     public function index()
     {
-      $books = Book::all()->toArray();
+      $books = Book::paginate(5);
       return view('findbook', compact('books'));
     }
 
@@ -51,7 +51,6 @@ class ManageBookController extends Controller
             'todpm' => 'required',
             'typebook' => 'required',
             'start' => 'required',
-            'end' => 'required',
           ]);
           $book = new Book();
 
@@ -71,7 +70,6 @@ class ManageBookController extends Controller
             $book->todpm = $request->todpm;
             $book->typebook = $request->typebook;
             $book->start = $request->start;
-            $book->end = $request->end;
 
       }
           $book->save();
@@ -87,7 +85,13 @@ class ManageBookController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::find($id);
+        $typeSelect = TypeBook::find($book->typebook);
+        $fromdrp = Department::find($book->fromdpm);
+        $todrp = Department::find($book->todpm);
+
+        return view('detail',compact('book','typeSelect','fromdrp','todrp'));
+
     }
 
     /**
@@ -100,9 +104,11 @@ class ManageBookController extends Controller
     {
           $book = Book::find($id);
           $typeSelect = TypeBook::find($book->typebook);
+          $fromdrp = Department::find($book->fromdpm);
+          $todrp = Department::find($book->todpm);
           $types = TypeBook::all();
           $drps = Department::all();
-          return view('edit',compact('book','id','typeSelect','types','drps'));
+          return view('edit',compact('book','id','typeSelect','types','drps','todrp','fromdrp'));
     }
 
     /**
@@ -121,14 +127,24 @@ class ManageBookController extends Controller
                'detail' => 'required',
                'refer' => 'required',
                'speed' => 'required',
+               'fromdpm' => 'required',
+               'todpm' => 'required',
+               'typebook' => 'required',
+               'start' => 'required',
            ]);
            $book->booknumber = $request->get('booknumber');
            $book->heading = $request->get('heading');
            $book->detail = $request->get('detail');
            $book->refer = $request->get('refer');
            $book->speed = $request->get('speed');
+           $book->fromdpm = $request->get('fromdpm');
+           $book->todpm = $request->get('todpm');
+           $book->typebook = $request->get('typebook');
+           $book->start = $request->get('start');
+
+
            $book->save();
-           return redirect('welcome')->with('success','book has been updated');
+           return redirect('book')->with('success','book has been updated');
     }
 
     /**
@@ -140,8 +156,11 @@ class ManageBookController extends Controller
     public function destroy($id)
     {
          $book = Book::find($id);
+         if($book->file!='nopic.jpg'){
+          File::delete(public_path().'\\images\\'.$book->file);//ถ้า path จริง จะใส่// ซื่อต่างกับการอัพโหลดใส่/
+      }
          $book->delete();
-         return redirect('book')->with('success','Product has been  deleted');
+         return redirect('book')->with('success','Book has been  deleted');
     }
 
 
@@ -150,17 +169,39 @@ class ManageBookController extends Controller
          {
              $booknumber=$request->booknumber;
              $heading=$request->heading;
+             $speed=$request->speed;
+             $refer=$request->refer;
+             $detail=$request->detail;
+             $typebook=$request->typebook;
+             $fromdpm=$request->fromdpm;
+             $todpm=$request->todpm;
+             $start=$request->start;
+             $end=$request->end;
 
 
+             $book = Book::where('booknumber',$booknumber)
+                    ->orWhere('heading', $heading)
+                      ->orWhere('heading', $heading)
+                        ->orWhere('speed', $speed)
+                          ->orWhere('refer', $refer)
+                            ->orWhere('detail', $detail)
+                              ->orWhere('typebook', $typebook)
+                                ->orWhere('fromdpm', $fromdpm)
+                                  ->orWhere('todpm', $todpm)
+                                      ->select('id','booknumber','heading','start')
+                                            ->get();
 
-             $book = Book::where('booknumber', 'like', '%' . $booknumber . '%')
-                    ->orWhere('heading', 'like', '%' . $heading . '%')
-                    ->select('id','booknumber','heading')
-                    ->get();
+
 
 
              return view('search-users',compact('book'));
 
 
          }
+
+         public function dload($id)
+         {
+              $book = Book::find($id);
+              return response()->dowload(public_path().'/images/'.$book->file);
+        }
 }
